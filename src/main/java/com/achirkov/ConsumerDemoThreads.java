@@ -25,14 +25,7 @@ public class ConsumerDemoThreads {
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "my_app");
-
-        /*
-        auto.offset.reset property is used when a consumer starts but there is no committed offset for the assigned partition.
-        In this case you can chose if you want to re-read all the messages from the beginning (earliest) or just after the last one (latest).
-         */
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"); // we want to read from the beginning of the topic
-        // properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest"); // we want to read only new messages onwards
-
 
         final CountDownLatch latch = new CountDownLatch(1);
         ConsumerTask consumerTask = new ConsumerTask(properties, latch);
